@@ -8,7 +8,77 @@
     <title>Local Weather App</title>
 </head>
 <body>
+     <!-- nav bar - https://bulma.io/documentation/components/navbar/ -->
+     <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="https://bulma.io">
+            <img src="." width="112" height="28">
+          </a>
+      
+          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item">
+              Home
+            </a>
     
+      
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                Favorites
+              </a>
+      
+              <div class="navbar-dropdown">
+                <a class="navbar-item">
+                  Favorite 1
+                </a>
+                <!-- dynamically generate this list with Javascript based on stored favorites. Hide if there are none!  -->
+              </div>
+            </div>
+          </div>
+      
+          <div class="navbar-end">
+            
+          </div>
+        </div>
+      </nav>
+
+     <!-- columns - https://bulma.io/documentation/columns/basics/ -->
+      <div class="columns">
+        <div class="column is-half">
+          First column
+
+          <div class="box">
+            This is for entering "where" you are searching. 
+
+            <input class="input" type="text" placeholder="Text input">
+
+            <input class="input" type="text" placeholder="Text input">
+
+          </div>
+          <div class="box">
+            results show here. 
+          </div>
+        </div>
+        <div class="column">
+          Second column
+
+          <div class="box">
+            weather data 
+            <div class="box">
+                map sub-window
+              </div>
+
+          </div>
+        </div>
+      
+      </div>
 </body>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
 </html>
