@@ -1,5 +1,34 @@
 // I need a function to get the weather data from the US National Weather Service API based on the park code
 
+var lat = 45
+var lon = -93
+var weatherObj = {}
+fetchWeatherAPILink(lat,lon) //running to test
+
+
+function fetchWeatherAPILink(lat,lon){
+var requestUrl = "https://api.weather.gov/points/" + lat + "," + lon 
+fetch(requestUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        var link = data.properties.forecast;
+        fetchWeatherAPIData(link)
+      })}
+
+
+function fetchWeatherAPIData(link){
+fetch(link)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        var weatherData = data.properties.periods[0];
+        console.log("weather object", weatherData)
+        // eventually call a function to display the data from here, pass weatherData
+      })}
+
 // I need a function to display the weather data in the weather section of the page
 
 // I need a function to get the park alerts from the NPS API based on the park code
