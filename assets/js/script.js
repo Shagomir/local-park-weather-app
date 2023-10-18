@@ -17,21 +17,65 @@ $(function() {
 });
 
 // I need an event listener function to display the favorites stored in local storage on page load
-$(function() {
-    $('#favorite').click(function() {
-        var favorite = localStorage.getItem('favorite');
-        $('#favorite').val(favorite);
-    });
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        var localStorageList = document.getElementById('favorite');
+        for (let i = 0; i < localStorage.length; i++) {
+            var key = localStorage.key(i);
+            var value = localStorage.getItem(key);
+            var listItem = document.createElement('li');
+            listItem.textContent = `${key}` + `: ` + `${value}`;
+            listItem.setAttribute('class', 'list-group-item');
+            localStorageList.appendChild(listItem);
+        }
+        var listArray = Array.from(localStorageList.children);
+        listArray.sort(function(a, b) {
+            return a.textContent.localeCompare(b.textContent);
+        });
+        localStorageList.innerHTML = '';
+        listArray.forEach((item) => localStorageList.appendChild(item));
+    }, 25);
 });
+
+
 
 // I need a function to call the Google Maps API to display a map of the park
 $(function() {
-    $('#map').click(function() {
-        var map = $('#map').val();
+    $('#mapBox').click(function() {
+        var map = $('#mapBox').val();
         localStorage.setItem('map', map);
     });
 });
 
 // I need a function to display the map in the map section of the page
+
+
+// I need a function to call the Google Maps API to display a map of the park
+
+function initMap() {
+    var map = new google.maps.Map(document.getElementById('mapBox'), {
+        center: { lat: 29.7267, lng: -95.6683 },
+        zoom: 8
+    });
+}
+
+// Function to use Google Maps API to autocomplete with location suggestions
+function initAutocomplete() {
+    var input = document.getElementById('textBox1');
+    autocomplete = new google.maps.places.Autocomplete(input);
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        var place = autocomplete.getPlace();
+        // Need to add what to do with the place information
+        console.log('Selected Place: ' + place.name + ' ' + place.formatted_address);
+    });
+}
+
+google.maps.event.addDomListener(window, 'load', function() {
+    initMap();
+    initAutocomplete();
+});
+
+
 
 // I need to incorporate JSON into this somehow
