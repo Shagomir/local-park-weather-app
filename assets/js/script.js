@@ -76,7 +76,6 @@ $(function() {
     });
 });
 
-// I need a function to display the map in the map section of the page
 
 
 // I need a function to call the Google Maps API to display a map of the park
@@ -84,7 +83,7 @@ $(function() {
 function initMap() {
     var map = new google.maps.Map(document.getElementById('mapBox'), {
         center: { lat: 29.7267, lng: -95.6683 },
-        zoom: 8
+        zoom: 14
     });
 }
 
