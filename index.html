@@ -1,94 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdyA30jLMYz0Tebb7rOgra6Qr3X_1QVgg&libraries=places&callback=initMap" async defer></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdyA30jLMYz0Tebb7rOgra6Qr3X_1QVgg&libraries=places&callback=initMap,initAutocomplete" async defer></script>
+
     <title>Local Weather App</title>
-</head>
-<body>
-     <!-- nav bar - https://bulma.io/documentation/components/navbar/ -->
-     <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-          <a class="navbar-item" href="https://bulma.io">
-            <img src="." width="112" height="28">
-          </a>
-      
-          <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-          </a>
-        </div>
-      
-        <div id="weatherAppNavbar" class="navbar-menu">
-          <div class="navbar-start">
-            <a class="navbar-item">
-              Home
-            </a>
-    
-      
-            <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">
-                Favorites
-              </a>
-      
-              <div class="navbar-dropdown">
-                <a class="navbar-item">
-                  Favorite 1
-                </a>
+  </head>
+  <body>
+    <!-- nav bar - https://bulma.io/documentation/components/navbar/ -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <img src="." width="112" height="28" />
+        </a>
 
-                <ul id="favorite"></ul>
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
 
+      <div id="weatherAppNavbar" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item"> Home </a>
 
-                <!-- dynamically generate this list with Javascript based on stored favorites. Hide if there are none!  -->
-              </div>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link"> Favorites </a>
+
+            <div class="navbar-dropdown">
+              <a class="navbar-item"> Favorite 1 </a>
+
+              <ul id="favorite"></ul>
+
+              <!-- dynamically generate this list with Javascript based on stored favorites. Hide if there are none!  -->
             </div>
           </div>
-      
-          <div class="navbar-end">
-            
-          </div>
         </div>
-      </nav>
 
-     <!-- columns - https://bulma.io/documentation/columns/basics/ -->
-      <div class="columns">
-        <div class="column is-half">
-          <!-- First column -->
+        <div class="navbar-end"></div>
+      </div>
+    </nav>
 
-    
-          <div id="searchBox" class="box">
-            This is for entering "where" you are searching. 
+
+    <!-- columns - https://bulma.io/documentation/columns/basics/ -->
+    <div class="columns">
+      <div class="column is-half">
+        <!-- First column -->
 
             <input class="input" type="text" id="textBox1" placeholder="Dog parks by name, city, or ZIP code"><button id="searchButton1">Search</button><button id="saveButton1">Save to Favorites</button>
             <!-- Added button for search and save to favorites, added id elements to call in the script.js file -->
 
 
-            <input class="input" type="text" placeholder="Text input">
+        <div id="searchBox" class="box">
+          This is for entering "where" you are searching.
 
-          </div>
-          <div id="resultsBox" class="box">
-            results show here. 
-          </div>
+          <input
+            class="input"
+            type="text"
+            placeholder="Text input"
+            id="textBox1"
+            placeholder="Dog parks by name, city, or Zip code"
+          /><button id="searchButton1">Search</button
+          ><button id="saveButton1">Save to Favorites</button>
+          <!-- Added button for search and save to favorites, added id elements to call in the script.js file -->
+
+          <input class="input" type="text" placeholder="Text input" />
         </div>
-        <div class="column">
-          <!-- Second column -->
-
-          <div id="weatherBox" class="box">
-            weather data 
-            <div id="mapBox" class="box">
-                map sub-window
-              </div>
-
-          </div>
-        </div>
-      
+        <div id="resultsBox" class="box">results show here.</div>
       </div>
-</body>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
-<script src="./assets/js/script.js"></script>
+      <div class="column">
+        <!-- Second column -->
+
+        <div id="weatherBox" class="box">
+          weather data
+          <div id="weatherDataBlock">
+            <!-- <h1 id="forecastLocation">LOCATION</h1><img id="weatherIcon" src="ICON" alt="" /><p id="forecastDescription">DETAILEDFORECAST</p><p id="temperature">Temperature: TEMPERATURE ° TEMPERATUREUNIT</p><p id="humidity">Humidity: RELATIVEHUMIDITY.VALUE %</p><p id="precipitation">Precipitation Chance: PROBABILITYOFPRECIPITATION.VALUE</p><p id="windspeed">Wind: WINDSPEED WIND DIRECTION</p> -->
+          </div>
+
+          <div id="mapBox" class="box">map sub-window</div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+  <script
+    src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+    integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
+    crossorigin="anonymous"
+  ></script>
+  <script src="./assets/js/script.js"></script>
 </html>
+
