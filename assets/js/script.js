@@ -118,23 +118,37 @@ $(function () {
 
 // I need a function to display the map in the map section of the page
 
-let map;
 
-async function initMap() {
-  const { Map } = await google.maps.importLibrary("maps");
 
-  map = new Map(document.getElementById("mapBox"), {
-    center: { lat: -34.397, lng: 150.644 },
-    zoom: 8,
-  });
+// I need a function to call the Google Maps API to display a map of the park
+
+
+function initMap() {
+    var map = new google.maps.Map(document.getElementById('mapBox'), {
+        center: { lat: 29.7267, lng: -95.6683 },
+        zoom: 8
+    });
 }
-
-initMap();
 
 // Function to use Google Maps API to autocomplete with location suggestions
 function initAutocomplete() {
-  var input = document.getElementById("textBox1");
-  var autocomplete = new google.maps.places.Autocomplete(input);
+
+    var input = document.getElementById('textBox1');
+    autocomplete = new google.maps.places.Autocomplete(input);
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        var place = autocomplete.getPlace();
+        // Need to add what to do with the place information
+        console.log('Selected Place: ' + place.name + ' ' + place.formatted_address);
+    });
 }
 
+google.maps.event.addDomListener(window, 'load', function() {
+    initMap();
+    initAutocomplete();
+});
+
+
+
 // I need to incorporate JSON into this somehow
+
