@@ -70,7 +70,6 @@ $(function () {
   fetchWeatherAPILink(lat, lon);
 }); //running to test - wait until JQuery is loaded tho
 
-// I need a function to display the weather data in the weather section of the page
 
 // I need a function to get the park alerts from the NPS API based on the park code
 
@@ -80,8 +79,8 @@ $(function () {
 
 // I need a function to store locations marked as favorites in local storage
 $(function () {
-  $("#favorite").click(function () {
-    var favorite = $("#favorite").val();
+  $("#saveButton1").click(function () {
+    var favorite = $("#favorite").val();  // Need to update this to store the correct value here to use it later on, I think "val" needs to be the text contained in the textbox
     localStorage.setItem("favorite", favorite);
   });
 });
@@ -115,7 +114,55 @@ $(function () {
   });
 });
 
+// I need a function to use Google Maps API to autocomplete with location suggestions
 
+
+// I need a function to get the latitude and longitude from the address entered in the search box
+
+document.getElementById("searchButton1").addEventListener("click", function() {
+    var address = document.getElementById("textBox1").value;
+    getLatLongFromAddress(address, function(lat, lng) {
+        
+        if (lat !== null && lng !== null) {
+            console.log('Latitude: ' + lat + ' Longitude: ' + lng);
+        } else {
+            console.log('Geocodeing was not successful');
+        }
+    });
+});
+
+function getLatLongFromAddress(address, callback) {
+    var geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            var location = results[0].geometry.location;
+            var lat = location.lat();
+            var lng = location.lng();
+            callback(lat, lng);
+        } else {
+            console.error('Geocoding Error: ', status);
+            callback(null, null);
+        }
+    });
+}
+
+
+// document.getElementById("searchButton1").addEventListener("click", function getLatLongFromAddress(adress, callback) {
+//     var geocoder = new google.maps.Geocoder();
+
+//     geocoder.geocode({ 'address': adress }, function (results, status) {
+//         if (status == google.maps.GeocoderStatus.OK) {
+//             var location = results[0].geometry.location;
+//             var lat = location.lat();
+//             var lng = location.lng();
+//             callback(lat, lng);
+//         } else {
+//             console.error('Geocoding Error: ', status);
+//             callback(null, null);
+//         }
+//     });
+// });
 
 
 // I need a function to call the Google Maps API to display a map of the park
