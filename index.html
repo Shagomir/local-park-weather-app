@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdyA30jLMYz0Tebb7rOgra6Qr3X_1QVgg&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdyA30jLMYz0Tebb7rOgra6Qr3X_1QVgg&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdyA30jLMYz0Tebb7rOgra6Qr3X_1QVgg&libraries=places&callback=initMap,initAutocomplete" async defer></script>
     <title>Local Weather App</title>
 </head>
 <body>
@@ -59,7 +60,7 @@
           <div id="searchBox" class="box">
             This is for entering "where" you are searching. 
 
-            <input class="input" type="text" placeholder="Text input" id="textBox1" placeholder="Dog parks by name, city, or Zip code"><button id="searchButton1">Search</button><button id="saveButton1">Save to Favorites</button>
+            <input class="input" type="text" id="textBox1" placeholder="Dog parks by name, city, or ZIP code"><button id="searchButton1">Search</button><button id="saveButton1">Save to Favorites</button>
             <!-- Added button for search and save to favorites, added id elements to call in the script.js file -->
 
             <input class="input" type="text" placeholder="Text input">
@@ -83,6 +84,7 @@
       
       </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
 <script src="./assets/js/script.js"></script>
 </html>
