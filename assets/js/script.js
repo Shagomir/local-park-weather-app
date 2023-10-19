@@ -76,6 +76,29 @@ $(function () {
 // I need a function to display the alerts in the alerts section of the page
 
 // I need a function to get the park news from the NPS API based on the park code
+var parkToSearch = 'acad'
+$(function fetchPark(parkToSearch) {
+    var parkURL = 'https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU';
+    console.log('parkURL', parkURL)
+    fetch(parkURL)
+        .then(response => response.json())
+        .then(data => { resultsBox
+            console.log('data', data);
+            for(var i=0; i < data.data.length; i++) {
+              var resultBox = $('<div>') 
+              resultBox.text(data.data[i].name)
+              $('#resultsBox').append(resultBox)
+              console.log(data.data[i].name)
+            }
+            
+
+
+        })
+        .catch(error => {
+            //Handle errors
+            console.log(error);
+        });
+});
 
 // I need a function to store locations marked as favorites in local storage
 $(function () {
