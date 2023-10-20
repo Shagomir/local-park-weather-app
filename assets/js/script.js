@@ -1,7 +1,7 @@
 // I need a function to get the weather data from the US National Weather Service API based on the park code
 
-function fetchWeatherAPILink(lat, lon) {
-  var requestUrl = "https://api.weather.gov/points/" + lat + "," + lon;
+function fetchWeatherAPILink(latWx, lonWx) {
+  var requestUrl = "https://api.weather.gov/points/" + latWx + "," + lonWx;
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -26,7 +26,9 @@ function fetchWeatherAPIData(link) {
 
 function displayWeatherData(weatherData) {
   console.log("weather object", weatherData);
-  var location = "Placeholder - we need to update this from the location data";
+  
+  // HELP HERE - I need to get the location from the search box and display it in the forecastLocation id
+  var location = weatherData.name;
   var weatherIcon = weatherData.icon;
   var detailedForecast = weatherData.detailedForecast;
   var temperature = weatherData.temperature;
@@ -72,9 +74,9 @@ function displayWeatherData(weatherData) {
 // I need a function to display the alerts in the alerts section of the page
 
 // I need a function to get the park news from the NPS API based on the park code
-var parkToSearch = 'acad'
+var parkToSearch = document.getElementById("textBox1").value;
 $(function fetchPark(parkToSearch) {
-    var parkURL = 'https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU';
+    var parkURL = 'https://developer.nps.gov/api/v1/parks?parkCode=' + parkToSearch + '&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU';
     console.log('parkURL', parkURL)
     fetch(parkURL)
         .then(response => response.json())
@@ -141,6 +143,8 @@ document.getElementById("searchButton1").addEventListener("click", function() {
         
         if (lat !== null && lng !== null) {
             console.log('Latitude: ' + lat.toFixed(4) + ' Longitude: ' + lng.toFixed(4));
+            fetchWeatherAPILink(lat.toFixed(4), lng.toFixed(4));
+            fetchPark();
         } else {
             console.log('Geocodeing was not successful');
         }
