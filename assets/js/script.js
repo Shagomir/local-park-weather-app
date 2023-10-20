@@ -24,11 +24,14 @@ function fetchWeatherAPIData(link) {
     });
 }
 
+var locationChris 
+
 function displayWeatherData(weatherData) {
   console.log("weather object", weatherData);
   
   // HELP HERE - I need to get the location from the search box and display it in the forecastLocation id
-  var location = weatherData.name;
+  var location = locationChris;
+  
   var weatherIcon = weatherData.icon;
   var detailedForecast = weatherData.detailedForecast;
   var temperature = weatherData.temperature;
@@ -44,7 +47,7 @@ function displayWeatherData(weatherData) {
 
   var weatherString =
     '<h1 id="forecastLocation">' +
-    location +
+    locationChris +
     '</h1><img id="weatherIcon" src="' +
     weatherIcon +
     '" alt="" /><p id="forecastDescription">' +
@@ -62,7 +65,8 @@ function displayWeatherData(weatherData) {
     " " +
     windDirection +
     "</p>";
-
+  
+  $("#weatherDataBlock").text("");
   $("#weatherDataBlock").append(weatherString);
 }
 
@@ -139,6 +143,8 @@ $(function () {
 
 document.getElementById("searchButton1").addEventListener("click", function() {
     var address = document.getElementById("textBox1").value;
+    locationChris = document.getElementById("textBox1").value;
+console.log(locationChris);
     getLatLongFromAddress(address, function(lat, lng) {
         
         if (lat !== null && lng !== null) {
