@@ -164,9 +164,9 @@ function getLatLongFromAddress(address, callback) {
 };
 
 $(function () {
-  var lat = 41;
-  var lon = -74;
-  fetchWeatherAPILink(lat, lon);
+  var latWx = lat;
+  var lonWx = lng;
+  fetchWeatherAPILink(latWx, lonWx);
 }); //running to test - wait until JQuery is loaded tho
 
 // document.getElementById("searchButton1").addEventListener("click", function getLatLongFromAddress(adress, callback) {
