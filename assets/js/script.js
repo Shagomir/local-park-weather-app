@@ -72,17 +72,14 @@ $(function () {
 
 
 // I need a function to get the park alerts from the NPS API based on the park code
-
-// I need a function to display the alerts in the alerts section of the page
-
-// I need a function to get the park news from the NPS API based on the park code
 var parkToSearch = 'acad'
-$(function fetchPark(parkToSearch) {
-    var parkURL = 'https://developer.nps.gov/api/v1/parks?parkCode=acad&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU';
+function fetchPark(stateCode) {
+  var parkURL = "https://developer.nps.gov/api/v1/parks?stateCode=MN&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU"
+    //var parkURL = 'https://developer.nps.gov/api/v1/parks?parkCode=' + parkToSearch + '&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU';
     console.log('parkURL', parkURL)
     fetch(parkURL)
         .then(response => response.json())
-        .then(data => { resultsBox
+        .then(data => {
             console.log('data', data);
             for(var i=0; i < data.data.length; i++) {
               var resultBox = $('<div>') 
@@ -90,15 +87,48 @@ $(function fetchPark(parkToSearch) {
               $('#resultsBox').append(resultBox)
               console.log(data.data[i].name)
             }
-            
+
+        
+  // //fetch ('https://developer.nps.gov/api/v1/parks?parkCode=&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU')
+  // .then(response => response.json())
+  //          .then(data => { 
+  //           for(i = 0; i < data.data)
+  // output.innerHTML += 'fullname = ' + data.fullName + "<br/>";
+  // //output.innerHTML += 'parkCode = ' + data.parkCode + "<br/>";
+  
+  
+  })
 
 
-        })
-        .catch(error => {
-            //Handle errors
-            console.log(error);
-        });
-});
+
+//Go to https://developer.nps.gov/api/v1/parks?parkCode=&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU
+
+//fetch 'parkCode' depending on autocomplete or by searching it in
+
+//Display 'fullname' into resultsBox
+
+       
+
+
+}
+      
+
+
+
+
+// I need a function to display the alerts in the alerts section of the page
+
+// I need a function to get the park news from the NPS API based on the park code
+
+
+
+
+
+
+
+
+
+
 
 // I need a function to store locations marked as favorites in local storage
 $(function () {
@@ -144,6 +174,8 @@ $(function () {
 
 document.getElementById("searchButton1").addEventListener("click", function() {
     var address = document.getElementById("textBox1").value;
+    //Function to fetch state code
+    fetchPark('MN')
     getLatLongFromAddress(address, function(lat, lng) {
         
         if (lat !== null && lng !== null) {
