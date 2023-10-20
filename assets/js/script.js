@@ -64,11 +64,7 @@ function displayWeatherData(weatherData) {
   $("#weatherDataBlock").append(weatherString);
 }
 
-$(function () {
-  var lat = 41;
-  var lon = -74;
-  fetchWeatherAPILink(lat, lon);
-}); //running to test - wait until JQuery is loaded tho
+
 
 
 // I need a function to get the park alerts from the NPS API based on the park code
@@ -90,9 +86,6 @@ $(function fetchPark(parkToSearch) {
               $('#resultsBox').append(resultBox)
               console.log(data.data[i].name)
             }
-            
-
-
         })
         .catch(error => {
             //Handle errors
@@ -137,7 +130,7 @@ $(function () {
   });
 });
 
-// I need a function to use Google Maps API to autocomplete with location suggestions
+// DONE I need a function to use Google Maps API to autocomplete with location suggestions
 
 
 // I need a function to get the latitude and longitude from the address entered in the search box
@@ -147,7 +140,7 @@ document.getElementById("searchButton1").addEventListener("click", function() {
     getLatLongFromAddress(address, function(lat, lng) {
         
         if (lat !== null && lng !== null) {
-            console.log('Latitude: ' + lat + ' Longitude: ' + lng);
+            console.log('Latitude: ' + lat.toFixed(4) + ' Longitude: ' + lng.toFixed(4));
         } else {
             console.log('Geocodeing was not successful');
         }
@@ -168,8 +161,13 @@ function getLatLongFromAddress(address, callback) {
             callback(null, null);
         }
     });
-}
+};
 
+$(function () {
+  var lat = 41;
+  var lon = -74;
+  fetchWeatherAPILink(lat, lon);
+}); //running to test - wait until JQuery is loaded tho
 
 // document.getElementById("searchButton1").addEventListener("click", function getLatLongFromAddress(adress, callback) {
 //     var geocoder = new google.maps.Geocoder();
