@@ -88,7 +88,15 @@ function fetchPark(stateCode) {
               console.log(data.data[i].name)
             }
 
+
         
+
+    })    
+}
+
+
+    
+
   // //fetch ('https://developer.nps.gov/api/v1/parks?parkCode=&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU')
   // .then(response => response.json())
   //          .then(data => { 
@@ -97,7 +105,11 @@ function fetchPark(stateCode) {
   // //output.innerHTML += 'parkCode = ' + data.parkCode + "<br/>";
   
   
+
   })
+
+  
+
 
 
 
@@ -110,7 +122,11 @@ function fetchPark(stateCode) {
        
 
 
+
 }
+
+
+
       
 
 
