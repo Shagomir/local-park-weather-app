@@ -77,27 +77,7 @@ function displayWeatherData(weatherData) {
 
 // I need a function to display the alerts in the alerts section of the page
 
-// I need a function to get the park news from the NPS API based on the park code
-var parkToSearch = document.getElementById("textBox1").value;
-$(function fetchPark(parkToSearch) {
-    var parkURL = 'https://developer.nps.gov/api/v1/parks?parkCode=' + parkToSearch + '&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU';
-    console.log('parkURL', parkURL)
-    fetch(parkURL)
-        .then(response => response.json())
-        .then(data => { resultsBox
-            console.log('data', data);
-            for(var i=0; i < data.data.length; i++) {
-              var resultBox = $('<div>') 
-              resultBox.text(data.data[i].name)
-              $('#resultsBox').append(resultBox)
-              console.log(data.data[i].name)
-            }
-        })
-        .catch(error => {
-            //Handle errors
-            console.log(error);
-        });
-});
+
 
 // I need a function to store locations marked as favorites in local storage
 $(function () {
@@ -141,11 +121,19 @@ $(function () {
 
 // I need a function to get the latitude and longitude from the address entered in the search box
 
+var googleStateCode = "";
+
 document.getElementById("searchButton1").addEventListener("click", function() {
     var address = document.getElementById("textBox1").value;
     locationChris = document.getElementById("textBox1").value;
-console.log(locationChris);
-    getLatLongFromAddress(address, function(lat, lng) {
+    console.log(locationChris);
+
+    var stateCodeInput = address.match(/[A-Z]{2}/);
+    if (stateCodeInput !== null) {
+        googleStateCode = stateCodeInput[0];
+        console.log('State Code: ' + googleStateCode);
+    }
+    getLatLongFromAddress(address, function(lat, lng) {  
         
         if (lat !== null && lng !== null) {
             console.log('Latitude: ' + lat.toFixed(4) + ' Longitude: ' + lng.toFixed(4));
@@ -155,9 +143,37 @@ console.log(locationChris);
             console.log('Geocodeing was not successful');
         }
     });
+    $(function fetchPark() {
+      var parkURL = 'https://developer.nps.gov/api/v1/parks?stateCode=' + googleStateCode + '&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU';
+      console.log('parkURL', parkURL)
+      fetch(parkURL)
+          .then(response => response.json())
+          .then(data => { resultsBox
+              console.log('data', data);
+              for(var i=0; i < data.data.length; i++) {
+                var resultBox = $('<div>') 
+                resultBox.text(data.data[i].name)
+                $('#resultsBox').append(resultBox)
+                console.log(data.data[i].name)
+              }
+          })
+          .catch(error => {
+              //Handle errors
+              console.log(error);
+          });
+  });
 });
 
+// I need a function to get the park news from the NPS API based on the park code
+
+
+
+
+
+
+
 // There was stuff here that Riley, Chris and I went over.
+// Updating this code to get the state code as well
 function getLatLongFromAddress(address, callback) {
     var geocoder = new google.maps.Geocoder();
 
@@ -166,13 +182,14 @@ function getLatLongFromAddress(address, callback) {
             var location = results[0].geometry.location;
             var lat = location.lat();
             var lng = location.lng();
-            callback(lat, lng);
-        } else {
+            callback(lat, lng);       
+      } else {
             console.error('Geocoding Error: ', status);
-            callback(null, null);
-        }
+            callback(null, null, null);
+        };
     });
-};
+
+  };
 
 $(function () {
   var latWx = lat;
