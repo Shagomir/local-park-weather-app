@@ -157,6 +157,7 @@ console.log(locationChris);
     });
 });
 
+// There was stuff here that Riley, Chris and I went over.
 function getLatLongFromAddress(address, callback) {
     var geocoder = new google.maps.Geocoder();
 
