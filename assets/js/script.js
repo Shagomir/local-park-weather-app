@@ -75,7 +75,57 @@ function displayWeatherData(weatherData) {
 
 // I need a function to get the park alerts from the NPS API based on the park code
 
+
+
+    
+
+  // //fetch ('https://developer.nps.gov/api/v1/parks?parkCode=&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU')
+  // .then(response => response.json())
+  //          .then(data => { 
+  //           for(i = 0; i < data.data)
+  // output.innerHTML += 'fullname = ' + data.fullName + "<br/>";
+  // //output.innerHTML += 'parkCode = ' + data.parkCode + "<br/>";
+  
+  
+
+  })
+
+  
+
+
+
+
+//Go to https://developer.nps.gov/api/v1/parks?parkCode=&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU
+
+//fetch 'parkCode' depending on autocomplete or by searching it in
+
+//Display 'fullname' into resultsBox
+
+       
+
+
+
+}
+
+
+
+      
+
+
+
+
 // I need a function to display the alerts in the alerts section of the page
+
+// I need a function to get the park news from the NPS API based on the park code
+
+
+
+
+
+
+
+
+
 
 
 
@@ -125,6 +175,7 @@ var googleStateCode = "";
 
 document.getElementById("searchButton1").addEventListener("click", function() {
     var address = document.getElementById("textBox1").value;
+
     locationChris = document.getElementById("textBox1").value;
     console.log(locationChris);
 
@@ -134,6 +185,7 @@ document.getElementById("searchButton1").addEventListener("click", function() {
         console.log('State Code: ' + googleStateCode);
     }
     getLatLongFromAddress(address, function(lat, lng) {  
+
         
         if (lat !== null && lng !== null) {
             console.log('Latitude: ' + lat.toFixed(4) + ' Longitude: ' + lng.toFixed(4));
