@@ -1,7 +1,7 @@
 // I need a function to get the weather data from the US National Weather Service API based on the park code
 
-function fetchWeatherAPILink(lat, lon) {
-  var requestUrl = "https://api.weather.gov/points/" + lat + "," + lon;
+function fetchWeatherAPILink(latWx, lonWx) {
+  var requestUrl = "https://api.weather.gov/points/" + latWx + "," + lonWx;
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -24,9 +24,14 @@ function fetchWeatherAPIData(link) {
     });
 }
 
+var locationChris 
+
 function displayWeatherData(weatherData) {
   console.log("weather object", weatherData);
-  var location = "Placeholder - we need to update this from the location data";
+  
+  // HELP HERE - I need to get the location from the search box and display it in the forecastLocation id
+  var location = locationChris;
+  
   var weatherIcon = weatherData.icon;
   var detailedForecast = weatherData.detailedForecast;
   var temperature = weatherData.temperature;
@@ -42,7 +47,7 @@ function displayWeatherData(weatherData) {
 
   var weatherString =
     '<h1 id="forecastLocation">' +
-    location +
+    locationChris +
     '</h1><img id="weatherIcon" src="' +
     weatherIcon +
     '" alt="" /><p id="forecastDescription">' +
@@ -60,39 +65,16 @@ function displayWeatherData(weatherData) {
     " " +
     windDirection +
     "</p>";
-
+  
+  $("#weatherDataBlock").text("");
   $("#weatherDataBlock").append(weatherString);
 }
 
-$(function () {
-  var lat = 41;
-  var lon = -74;
-  fetchWeatherAPILink(lat, lon);
-}); //running to test - wait until JQuery is loaded tho
+
 
 
 // I need a function to get the park alerts from the NPS API based on the park code
-var parkToSearch = 'acad'
-function fetchPark(stateCode) {
-  var parkURL = "https://developer.nps.gov/api/v1/parks?stateCode=MN&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU"
-    //var parkURL = 'https://developer.nps.gov/api/v1/parks?parkCode=' + parkToSearch + '&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU';
-    console.log('parkURL', parkURL)
-    fetch(parkURL)
-        .then(response => response.json())
-        .then(data => {
-            console.log('data', data);
-            for(var i=0; i < data.data.length; i++) {
-              var resultBox = $('<div>') 
-              resultBox.text(data.data[i].name)
-              $('#resultsBox').append(resultBox)
-              console.log(data.data[i].name)
-            }
 
-
-        
-
-    })    
-}
 
 
     
@@ -146,6 +128,7 @@ function fetchPark(stateCode) {
 
 
 
+
 // I need a function to store locations marked as favorites in local storage
 $(function () {
   $("#saveButton1").click(function () {
@@ -183,25 +166,66 @@ $(function () {
   });
 });
 
-// I need a function to use Google Maps API to autocomplete with location suggestions
+// DONE I need a function to use Google Maps API to autocomplete with location suggestions
 
 
 // I need a function to get the latitude and longitude from the address entered in the search box
 
+var googleStateCode = "";
+
 document.getElementById("searchButton1").addEventListener("click", function() {
     var address = document.getElementById("textBox1").value;
-    //Function to fetch state code
-    fetchPark('MN')
-    getLatLongFromAddress(address, function(lat, lng) {
+
+    locationChris = document.getElementById("textBox1").value;
+    console.log(locationChris);
+
+    var stateCodeInput = address.match(/[A-Z]{2}/);
+    if (stateCodeInput !== null) {
+        googleStateCode = stateCodeInput[0];
+        console.log('State Code: ' + googleStateCode);
+    }
+    getLatLongFromAddress(address, function(lat, lng) {  
+
         
         if (lat !== null && lng !== null) {
-            console.log('Latitude: ' + lat + ' Longitude: ' + lng);
+            console.log('Latitude: ' + lat.toFixed(4) + ' Longitude: ' + lng.toFixed(4));
+            fetchWeatherAPILink(lat.toFixed(4), lng.toFixed(4));
+            fetchPark();
         } else {
             console.log('Geocodeing was not successful');
         }
     });
+    $(function fetchPark() {
+      var parkURL = 'https://developer.nps.gov/api/v1/parks?stateCode=' + googleStateCode + '&api_key=hF5P4Fdh7gMTX55MjO7q3M2XXfN7XDsfr6YWNvnU';
+      console.log('parkURL', parkURL)
+      fetch(parkURL)
+          .then(response => response.json())
+          .then(data => { resultsBox
+              console.log('data', data);
+              for(var i=0; i < data.data.length; i++) {
+                var resultBox = $('<div>') 
+                resultBox.text(data.data[i].name)
+                $('#resultsBox').append(resultBox)
+                console.log(data.data[i].name)
+              }
+          })
+          .catch(error => {
+              //Handle errors
+              console.log(error);
+          });
+  });
 });
 
+// I need a function to get the park news from the NPS API based on the park code
+
+
+
+
+
+
+
+// There was stuff here that Riley, Chris and I went over.
+// Updating this code to get the state code as well
 function getLatLongFromAddress(address, callback) {
     var geocoder = new google.maps.Geocoder();
 
@@ -210,14 +234,20 @@ function getLatLongFromAddress(address, callback) {
             var location = results[0].geometry.location;
             var lat = location.lat();
             var lng = location.lng();
-            callback(lat, lng);
-        } else {
+            callback(lat, lng);       
+      } else {
             console.error('Geocoding Error: ', status);
-            callback(null, null);
-        }
+            callback(null, null, null);
+        };
     });
-}
 
+  };
+
+$(function () {
+  var latWx = lat;
+  var lonWx = lng;
+  fetchWeatherAPILink(latWx, lonWx);
+}); //running to test - wait until JQuery is loaded tho
 
 // document.getElementById("searchButton1").addEventListener("click", function getLatLongFromAddress(adress, callback) {
 //     var geocoder = new google.maps.Geocoder();
