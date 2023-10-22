@@ -88,7 +88,7 @@ function displayWeatherData(weatherData) {
   
   
 
-  })
+  
 
   
 
@@ -105,7 +105,7 @@ function displayWeatherData(weatherData) {
 
 
 
-}
+
 
 
 
@@ -131,11 +131,17 @@ function displayWeatherData(weatherData) {
 
 // I need a function to store locations marked as favorites in local storage
 $(function () {
-  $("#saveButton1").click(function () {
+  saveButton1.addEventListener('click', function () {
+    const text = textBox1.value
     var favorite = $("#favorite").val();  // Need to update this to store the correct value here to use it later on, I think "val" needs to be the text contained in the textbox
-    localStorage.setItem("favorite", favorite);
+    localStorage.setItem("favorite", text);
   });
 });
+
+//Need to update code so multiple values are saved when clicked on 'save to favorites'. 
+//Right now there is only one value in local storage and everytime you click on the save button 
+//it replaces the last saved location with the most recent one. Same thing with favorites.
+
 
 // I need an event listener function to display the favorites stored in local storage on page load
 document.addEventListener("DOMContentLoaded", function () {
